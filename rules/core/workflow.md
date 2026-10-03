@@ -1,0 +1,21 @@
+# Quy trình làm việc (W-rules)
+
+- **W1.** Mặc định làm thẳng. CHỈ brainstorm/spec khi chạm một trong ba ngưỡng: (a) yêu cầu mơ hồ hoặc có nhiều cách hiểu khác nhau về kết quả; (b) đổi kiến trúc, data model, hoặc public contract (API / CLI / UI flow); (c) người dùng yêu cầu rõ. Dưới ngưỡng → code luôn.
+- **W2.** Chỉ viết plan khi đã có spec được duyệt, hoặc việc kéo dài qua nhiều phiên / nhiều commit. Gặp bug → systematic-debugging trước khi sửa.
+- **W3.** Chỉ sửa trong phạm vi task. Phát hiện việc ngoài scope (refactor tiện tay, lỗi khác) → NÊU RA, không tự làm.
+- **W4.** NEVER báo "xong / đã sửa / pass" khi chưa chạy lệnh kiểm chứng (test / typecheck / build / screenshot) và dán output làm bằng chứng.
+- **W5.** Commit theo conventional commits có scope — `type(scope): mô tả`. Một commit = một việc trọn vẹn.
+- **W6.** Tuân luật branching trong CLAUDE.md: không tự tạo branch; branch (khi được yêu cầu) luôn đi kèm worktree.
+- **W7.** Bắt đầu chức năng mới đáng kể → tìm skeleton/foundation battle-tested trước khi tự dựng từ đầu.
+- **W8.** Kết thúc task → xoá file thí nghiệm/debug đã tạo; rà các file MỚI theo checklist F-rules.
+- **W9.** Lệnh thay đổi trạng thái khó đảo (xoá, reset DB, deploy, migrate) → soát lại bằng chứng có ủng hộ đúng hành động đó không; không chắc → hỏi.
+- **W10.** Frontend: tuân `<frontend_gate>` trong CLAUDE.md — chốt IDEA + APPROACH trước khi làm UI.
+- **W11.** Trước khi sửa file đầu tiên → `git status --porcelain`. Mặc định làm trên checkout và branch hiện tại, kể cả khi có file `M`/`??`; giữ nguyên thay đổi ngoài phạm vi task. KHÔNG tự tạo hoặc chuyển sang worktree chỉ vì checkout có thay đổi chưa commit. Commit luôn bằng `git commit -- <paths>`, NEVER `git add -A` / `git commit -a`. Verify thất bại → xác định lỗi có thuộc thay đổi của task trước khi kết luận; không bắt buộc tạo worktree sạch để kiểm chứng.
+
+## Checklist trước khi báo hoàn thành
+
+- [ ] Đã chạy verify và dán output chưa? (W4)
+- [ ] Có sửa gì ngoài scope không? (W3)
+- [ ] File tạm đã dọn, file mới đã soát F-rules chưa? (W8)
+- [ ] Commit message đúng chuẩn chưa? (W5)
+- [ ] Commit theo path, không quét file của phiên khác? (W11)
