@@ -150,6 +150,11 @@ fi
 
 cd "$SCRIPT_DIR" || exit 1
 
+if ! command -v node >/dev/null 2>&1; then
+  echo '{"error": "node is not installed or not in PATH"}'
+  exit 1
+fi
+
 # Resolve the harness PID (grandparent of this script).
 # $PPID is the ephemeral shell the harness spawned to run us — it dies
 # when this script exits. The harness itself is $PPID's parent.

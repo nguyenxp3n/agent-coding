@@ -18,9 +18,13 @@ fi
 
 plan=$1
 n=$2
+
+[ -f "$plan" ] || { echo "no such plan file: $plan" >&2; exit 2; }
+[[ "$n" =~ ^[0-9]+$ ]] || { echo "invalid task number (must be integer): $n" >&2; exit 2; }
+
 sdd="$(cd "$(dirname "$0")/../../subagent-driven-development/scripts" && pwd)"
 
-out=$("$sdd/task-brief" "$plan" "$n")
+out=$("${BASH:-bash}" "$sdd/task-brief" "$plan" "$n")
 brief=$(printf '%s\n' "$out" | sed -n 's/^wrote \(.*\): [0-9][0-9]* lines$/\1/p')
 [ -n "$brief" ] || { echo "task-brief did not report a path: $out" >&2; exit 1; }
 

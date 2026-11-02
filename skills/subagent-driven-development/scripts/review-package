@@ -29,6 +29,7 @@ git merge-base --is-ancestor "$base" "$head" || { echo "HEAD is not a descendant
 
 if [ $# -eq 4 ]; then
   out=$4
+  mkdir -p "$(dirname "$out")"
 else
   # Invoke via bash rather than direct exec: some extractors (Python zipfile)
   # strip Unix exec bits when unpacking marketplace packages (#2040).

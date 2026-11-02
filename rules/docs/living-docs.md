@@ -9,7 +9,7 @@ paths:
 # Tài liệu sống — luật khi đang sửa doc (D-rules bổ sung)
 
 Nạp khi chạm `docs/**`, `AGENTS.md`, `README.md`, `CHANGELOG.md`.
-Luật D-rules luôn bật nằm ở `~/.claude/rules/core/docs.md`.
+Luật D-rules luôn bật nằm ở [core/docs.md](../core/docs.md) (hoặc `~/.claude/rules/core/docs.md`).
 
 - **D6.** Claim hành vi trong `AGENTS.md`, `README.md`, `CHANGELOG.md` và mọi trang dưới `docs/` MUST neo bằng markdown link **tương đối từ chính file chứa link**, và link phải còn sống (`docs-anchors.sh` quét cả hai nhóm). **Nhãn ý định `current`/`decided`/`building`/`deprecated` đã bỏ 2026-09-09** — nhãn đánh dấu trạng thái của spec/plan/CONTEXT, và bộ đó sống trong issue Linear chứ không trong repo; một tài liệu còn trong repo thì mặc định là đang đúng, sai thì sửa chứ không dán nhãn.
   - ✅ trong `AGENTS.md`: `[move_pane_ownership](electron/coordinator.ts)`

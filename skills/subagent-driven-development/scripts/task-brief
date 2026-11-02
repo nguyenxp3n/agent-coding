@@ -17,9 +17,11 @@ fi
 plan=$1
 n=$2
 [ -f "$plan" ] || { echo "no such plan file: $plan" >&2; exit 2; }
+[[ "$n" =~ ^[0-9]+$ ]] || { echo "invalid task number (must be integer): $n" >&2; exit 2; }
 
 if [ $# -eq 3 ]; then
   out=$3
+  mkdir -p "$(dirname "$out")"
 else
   # Invoke via bash rather than direct exec: some extractors (Python zipfile)
   # strip Unix exec bits when unpacking marketplace packages (#2040).

@@ -8,7 +8,7 @@
 
 SESSION_DIR="$1"
 
-if [[ -z "$SESSION_DIR" ]]; then
+if [[ -z "$SESSION_DIR" ]] || [[ "$SESSION_DIR" == "/" ]] || [[ "$SESSION_DIR" == "/tmp" ]] || [[ "$SESSION_DIR" == "/tmp/" ]]; then
   echo '{"error": "Usage: stop-server.sh <session_dir>"}'
   exit 1
 fi
@@ -109,9 +109,12 @@ if [[ -f "$PID_FILE" ]]; then
   rm -f "$PID_FILE" "$SERVER_ID_FILE" "${STATE_DIR}/server.log"
   mark_stopped "stop-server.sh"
 
-  # Only delete ephemeral /tmp directories
-  if [[ "$SESSION_DIR" == /tmp/* ]]; then
-    rm -rf "$SESSION_DIR"
+  # Only delete ephemeral /tmp brainstorm session directories (never /tmp itself)
+  if [[ "$SESSION_DIR" == /tmp/brainstorm-* ]] && [[ "$SESSION_DIR" != "/tmp" ]] && [[ "$SESSION_DIR" != "/tmp/" ]]; then
+    real_session_dir="$(cd "$SESSION_DIR" 2>/dev/null && pwd -P || true)"
+    if [[ "$real_session_dir" == /tmp/brainstorm-* ]]; then
+      rm -rf "$real_session_dir"
+    fi
   fi
 
   echo '{"status": "stopped"}'
